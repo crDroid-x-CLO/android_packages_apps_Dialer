@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2011 The Android Open Source Project
+ * Copyright (C) 2025 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +19,8 @@ package com.android.dialer.calllogutils;
 
 import android.content.res.Resources;
 import android.provider.CallLog.Calls;
-import com.android.dialer.duo.Duo;
+
+import com.android.dialer.R;
 
 /** Helper class to perform operations related to call types. */
 public class CallTypeHelper {
@@ -52,11 +54,8 @@ public class CallTypeHelper {
   /** Name used to identify calls which were answered on another device. */
   private final CharSequence answeredElsewhereName;
   /** Name used to identify incoming Duo calls. */
-  private final CharSequence incomingDuoCall;
-  /** Name used to identify outgoing Duo calls. */
-  private final CharSequence outgoingDuoCall;
 
-  public CallTypeHelper(Resources resources, Duo duo) {
+  public CallTypeHelper(Resources resources) {
     // Cache these values so that we do not need to look them up each time.
     incomingName = resources.getString(R.string.type_incoming);
     incomingPulledName = resources.getString(R.string.type_incoming_pulled);
@@ -72,18 +71,6 @@ public class CallTypeHelper {
     rejectedName = resources.getString(R.string.type_rejected);
     blockedName = resources.getString(R.string.type_blocked);
     answeredElsewhereName = resources.getString(R.string.type_answered_elsewhere);
-
-    if (duo.getIncomingCallTypeText() != -1) {
-      incomingDuoCall = resources.getString(duo.getIncomingCallTypeText());
-    } else {
-      incomingDuoCall = incomingVideoName;
-    }
-
-    if (duo.getOutgoingCallTypeText() != -1) {
-      outgoingDuoCall = resources.getString(duo.getOutgoingCallTypeText());
-    } else {
-      outgoingDuoCall = outgoingVideoName;
-    }
   }
 
   public static boolean isMissedCallType(int callType) {
@@ -95,16 +82,13 @@ public class CallTypeHelper {
 
   /** Returns the text used to represent the given call type. */
   public CharSequence getCallTypeText(
-      int callType, boolean isVideoCall, boolean isPulledCall, boolean isDuoCall) {
+      int callType, boolean isVideoCall, boolean isPulledCall) {
     switch (callType) {
       case Calls.INCOMING_TYPE:
         if (isVideoCall) {
           if (isPulledCall) {
             return incomingVideoPulledName;
           } else {
-            if (isDuoCall) {
-              return incomingDuoCall;
-            }
             return incomingVideoName;
           }
         } else {
@@ -120,9 +104,6 @@ public class CallTypeHelper {
           if (isPulledCall) {
             return outgoingVideoPulledName;
           } else {
-            if (isDuoCall) {
-              return outgoingDuoCall;
-            }
             return outgoingVideoName;
           }
         } else {

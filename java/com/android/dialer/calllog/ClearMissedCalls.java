@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2018 The Android Open Source Project
+ * Copyright (C) 2023 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +22,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.net.Uri;
 import android.provider.CallLog.Calls;
-import android.support.v4.os.UserManagerCompat;
+
+import androidx.core.os.UserManagerCompat;
+
 import com.android.dialer.common.LogUtil;
 import com.android.dialer.common.concurrent.Annotations.BackgroundExecutor;
 import com.android.dialer.common.concurrent.Annotations.Ui;
@@ -29,12 +32,15 @@ import com.android.dialer.common.database.Selection;
 import com.android.dialer.inject.ApplicationContext;
 import com.android.dialer.notification.missedcalls.MissedCallNotificationCanceller;
 import com.android.dialer.util.PermissionsUtil;
+
 import com.google.common.collect.ImmutableSet;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
+
 import java.util.Collection;
+
 import javax.inject.Inject;
 
 /**

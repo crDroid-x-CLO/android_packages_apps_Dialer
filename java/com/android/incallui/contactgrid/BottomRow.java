@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2016 The Android Open Source Project
+ * Copyright (C) 2025 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,8 +18,11 @@
 package com.android.incallui.contactgrid;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
+
+import androidx.annotation.Nullable;
+
+import com.android.dialer.R;
 import com.android.incallui.call.state.DialerCallState;
 import com.android.incallui.incall.protocol.PrimaryCallState;
 import com.android.incallui.incall.protocol.PrimaryInfo;
@@ -38,7 +42,8 @@ public class BottomRow {
   /** Content of the bottom row. */
   public static class Info {
 
-    @Nullable public final CharSequence label;
+    @Nullable
+    public final CharSequence label;
     public final boolean isTimerVisible;
     public final boolean isWorkIconVisible;
     public final boolean isHdAttemptingIconVisible;

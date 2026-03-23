@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2018 The Android Open Source Project
+ * Copyright (C) 2023 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +18,7 @@
 package com.android.dialer.phonelookup.emergency;
 
 import android.content.Context;
+
 import com.android.dialer.DialerPhoneNumber;
 import com.android.dialer.common.concurrent.Annotations.BackgroundExecutor;
 import com.android.dialer.inject.ApplicationContext;
@@ -24,11 +26,13 @@ import com.android.dialer.phonelookup.PhoneLookup;
 import com.android.dialer.phonelookup.PhoneLookupInfo;
 import com.android.dialer.phonelookup.PhoneLookupInfo.EmergencyInfo;
 import com.android.dialer.phonenumberutil.PhoneNumberHelper;
+
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;
+
 import javax.inject.Inject;
 
 /**
@@ -57,7 +61,7 @@ public class EmergencyPhoneLookup implements PhoneLookup<EmergencyInfo> {
         () ->
             EmergencyInfo.newBuilder()
                 .setIsEmergencyNumber(
-                    PhoneNumberHelper.isLocalEmergencyNumber(
+                    PhoneNumberHelper.isEmergencyNumber(
                         appContext, dialerPhoneNumber.getNormalizedNumber()))
                 .build());
   }
