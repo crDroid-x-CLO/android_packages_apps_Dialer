@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2018 The Android Open Source Project
+ * Copyright (C) 2023 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,27 +20,30 @@ package com.android.dialer.rtt;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
+
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.android.dialer.R;
+import com.android.dialer.app.BaseActivity;
 import com.android.dialer.common.Assert;
 import com.android.dialer.common.concurrent.DialerExecutorComponent;
-import com.android.dialer.common.concurrent.UiListener;
+import com.android.dialer.common.concurrent.SupportUiListener;
 import com.android.dialer.glidephotomanager.PhotoInfo;
 import com.android.dialer.protos.ProtoParsers;
 import com.android.dialer.widget.DialerToolbar;
 
 /** Activity holds RTT transcript. */
-public class RttTranscriptActivity extends AppCompatActivity {
+public class RttTranscriptActivity extends BaseActivity {
 
   public static final String EXTRA_TRANSCRIPT_ID = "extra_transcript_id";
   public static final String EXTRA_PRIMARY_TEXT = "extra_primary_text";
   public static final String EXTRA_PHOTO_INFO = "extra_photo_info";
 
   private RttTranscriptAdapter adapter;
-  private UiListener<RttTranscript> rttTranscriptUiListener;
+  private SupportUiListener<RttTranscript> rttTranscriptUiListener;
   private DialerToolbar toolbar;
 
   public static Intent getIntent(
@@ -55,6 +59,7 @@ public class RttTranscriptActivity extends AppCompatActivity {
   protected void onCreate(@Nullable Bundle bundle) {
     super.onCreate(bundle);
     setContentView(R.layout.activity_rtt_transcript);
+    setupInsets(findViewById(R.id.main_layout));
     toolbar = findViewById(R.id.toolbar);
     toolbar.setBackgroundColor(getColor(R.color.rtt_transcript_primary_color));
     getWindow().setStatusBarColor(getColor(R.color.rtt_transcript_primary_color_dark));
@@ -68,7 +73,7 @@ public class RttTranscriptActivity extends AppCompatActivity {
 
     rttTranscriptUiListener =
         DialerExecutorComponent.get(this)
-            .createUiListener(getFragmentManager(), "Load RTT transcript");
+            .createUiListener(getSupportFragmentManager(), "Load RTT transcript");
     handleIntent(getIntent());
   }
 

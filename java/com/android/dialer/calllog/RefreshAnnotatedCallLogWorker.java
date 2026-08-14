@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 The Android Open Source Project
+ * Copyright (C) 2023 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +19,7 @@ package com.android.dialer.calllog;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
 import com.android.dialer.calllog.constants.SharedPrefKeys;
 import com.android.dialer.calllog.database.MutationApplier;
 import com.android.dialer.calllog.datasources.CallLogDataSource;
@@ -34,13 +36,16 @@ import com.android.dialer.metrics.FutureTimer;
 import com.android.dialer.metrics.FutureTimer.LogCatMode;
 import com.android.dialer.metrics.Metrics;
 import com.android.dialer.storage.Unencrypted;
+
 import com.google.common.base.Preconditions;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
