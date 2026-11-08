@@ -136,6 +136,7 @@ public class DialerSettingsActivity extends BaseActivity implements
       soundSettings.setFragment(SoundSettingsFragment.class.getName());
       soundSettings.setViewId(R.id.settings_header_sounds_and_vibration);
       soundSettings.setIconSpaceReserved(false);
+      soundSettings.setOnPreferenceClickListener(this);
       getPreferenceScreen().addPreference(soundSettings);
 
       Preference quickResponseSettings = new Preference(getContext());
@@ -200,6 +201,12 @@ public class DialerSettingsActivity extends BaseActivity implements
         accessibilitySettings.setIconSpaceReserved(false);
         getPreferenceScreen().addPreference(accessibilitySettings);
       }
+
+      final Preference otherSettings = new Preference(getContext());
+      otherSettings.setTitle(R.string.other_settings_label);
+      otherSettings.setFragment(OtherSettingsFragment.class.getName());
+      otherSettings.setIconSpaceReserved(false);
+      getPreferenceScreen().addPreference(otherSettings);
     }
 
     @Override
@@ -217,7 +224,6 @@ public class DialerSettingsActivity extends BaseActivity implements
           return true;
         }
       }
-      super.onPreferenceTreeClick(preference);
       return false;
     }
 
